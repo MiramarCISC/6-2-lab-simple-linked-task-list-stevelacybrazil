@@ -33,7 +33,7 @@ int countTasks(const TaskNode* head) {
     const TaskNode* current = head;
 
     while (current != nullptr) {
-        count++
+        count++;
         current = current->next;
     }
     
@@ -104,7 +104,7 @@ void clearTasks(TaskNode*& head) {
         delete temp;
     }
 
-    head = nullptr:
+    head = nullptr;
 }
 
 void printTask(const Task& task) {
@@ -119,7 +119,7 @@ void printTask(const Task& task) {
         cout << "Incomplete";
     }
 
-    cout << end1;
+    cout << endl;
 }
 
 void printTasks(const TaskNode* head) {
