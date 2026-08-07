@@ -51,7 +51,7 @@ TaskNode* findTask(TaskNode* head, string description) {
 
     while (current != nullptr) {
         if (current->data.description == description) {
-            return nullptr;
+            return current;
         }
 
         current = current->next;
