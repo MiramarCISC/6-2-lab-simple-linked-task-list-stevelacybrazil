@@ -18,14 +18,6 @@ bool isValidPriority(int priority);
 Task createTask(std::string description, int priority);
 
 void insertFront(TaskNode*& head, Task task);
-    TaskNode* newNode = new TaskNode;
-
-    newNode->data = task;
-    newNode->next = head;
-
-    head= newNode;
-};
-
 int countTasks(const TaskNode* head);
 TaskNode* findTask(TaskNode* head, std::string description);
 bool markTaskComplete(TaskNode* head, std::string description);
