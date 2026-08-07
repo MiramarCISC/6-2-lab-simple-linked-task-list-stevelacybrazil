@@ -21,7 +21,7 @@ Task createTask(string description, int priority) {
 void insertFront(TaskNode*& head, Task task) {
     TaskNode* newNode = new TaskNode;
 
-    newNode->task = task;
+    newNode->data = task;
     newNode->next = head;
 
     head = newNode;
@@ -44,7 +44,7 @@ TaskNode* findTask(TaskNode* head, string description) {
     TaskNode* current = head;
 
     while (current != nullptr) {
-        if (current->task.description == description) {
+        if (current->data.description == description) {
             return nullptr;
         }
 
@@ -61,7 +61,7 @@ bool markTaskComplete(TaskNode* head, string description) {
         return false;
     }
 
-    taskNode->task.completed = true;
+    taskNode->data.completed = true;
 
     return true;
 }
@@ -69,7 +69,7 @@ bool markTaskComplete(TaskNode* head, string description) {
 int removeCompletedTasks(TaskNode*& head) {
     int removed = 0;
 
-    while (head != nullptr && head->task.completed) {
+    while (head != nullptr && head->data.completed) {
         TaskNode* temp = head;
         head = head->next;
 
@@ -80,7 +80,7 @@ int removeCompletedTasks(TaskNode*& head) {
     TaskNode* current = head;
 
     while (current != nullptr && current->next != nullptr) {
-        if (current->next->task.completed) {
+        if (current->next->data.completed) {
             TaskNode* temp = current->next;
 
             current->next = temp->next;
@@ -109,7 +109,7 @@ void clearTasks(TaskNode*& head) {
 
 void printTask(const Task& task) {
     cout << task.description
-         << " | priority "
+         << " | Priority: "
          << task.priority
          << " | ";
 
@@ -126,8 +126,7 @@ void printTasks(const TaskNode* head) {
     const TaskNode* current = head;
 
     while (current != nullptr) {
-        printTask(current->task);
-        
+        printTask(current->data);
         current = current->next;
     }
 }
