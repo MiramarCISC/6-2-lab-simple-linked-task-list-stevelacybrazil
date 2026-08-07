@@ -136,12 +136,3 @@ void printTasks(const TaskNode* head) {
         current = current->next;
     }
 }
-
-void insertFront(TaskNode*& head, Task task) {
-    TaskNode* newNode = new TaskNode
-
-    newNode->data = task;
-    newNode->next = head;
-
-    head = newNode;
-}
