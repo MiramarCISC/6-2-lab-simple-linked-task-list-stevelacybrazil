@@ -1,84 +1,133 @@
 #include "task_list.hpp"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 bool isValidPriority(int priority) {
-    // TODO: Return true when priority is from 1 to 5.
-    return false;
+    return priority >= 1 && priority <= 5;
 }
 
 Task createTask(string description, int priority) {
     Task task;
 
-    // TODO:
-    // Store the description.
-    // Store the priority if valid; otherwise store 1.
-    // New tasks should start as not completed.
-
-    return task;
+    task.description = description;
+    task.priority = priority;
+    task.completed = false;
+    
+    return task; 
 }
 
 void insertFront(TaskNode*& head, Task task) {
-    // TODO:
-    // Dynamically allocate a new TaskNode.
-    // Store task in the node.
-    // Point the new node to the old head.
-    // Update head.
+    TaskNode* newNode = new TaskNode;
+
+    newNode->task = task;
+    newNode->next = head;
+
+    head = newNode;
 }
 
 int countTasks(const TaskNode* head) {
-    // TODO: Traverse the list and count nodes.
-    return 0;
-}
-
-TaskNode* findTask(TaskNode* head, string description) {
-    // TODO:
-    // Traverse the list.
-    // Return the first node whose task description matches.
-    // Return nullptr if not found.
-    return nullptr;
-}
-
-bool markTaskComplete(TaskNode* head, string description) {
-    // TODO:
-    // Find the task.
-    // If found, set completed to true and return true.
-    // Otherwise return false.
-    return false;
-}
-
-int removeCompletedTasks(TaskNode*& head) {
-    // TODO:
-    // Remove all completed tasks.
-    // Return the number of removed nodes.
-    // Be sure to handle completed tasks at the head of the list.
-    return 0;
-}
-
-void clearTasks(TaskNode*& head) {
-    // TODO:
-    // Delete every node in the list.
-    // Set head to nullptr.
-}
-
-void printTask(const Task& task) {
-    cout << task.description
-         << " | priority " << task.priority
-         << " | " << (task.completed ? "complete" : "not complete")
-         << endl;
-}
-
-void printTasks(const TaskNode* head) {
-    if (head == nullptr) {
-        cout << "No tasks." << endl;
-        return;
-    }
+    int count = 0;
 
     const TaskNode* current = head;
 
     while (current != nullptr) {
-        printTask(current->data);
+        count++
+        current = current->next;
+    }
+    
+    return count;
+}
+
+TaskNode* findTask(TaskNode* head, string description) {
+    TaskNode* current = head;
+
+    while (current != nullptr) {
+        if (current->task.description == description) {
+            return nullptr;
+        }
+
+        current = current->next;
+    }
+
+    return nullptr;
+}
+
+bool markTaskComplete(TaskNode* head, string description) {
+    TaskNode* taskNode = findTask(head, description);
+
+    if (taskNode == nullptr) {
+        return false;
+    }
+
+    taskNode->task.completed = true;
+
+    return true;
+}
+
+int removeCompletedTasks(TaskNode*& head) {
+    int removed = 0;
+
+    while (head != nullptr && head->task.completed) {
+        TaskNode* temp = head;
+        head = head->next;
+
+        delete temp;
+        removed++;
+    }
+
+    TaskNode* current = head;
+
+    while (current != nullptr && current->next != nullptr) {
+        if (current->next->task.completed) {
+            TaskNode* temp = current->next;
+
+            current->next = temp->next;
+
+            delete temp;
+            removed++;
+        } else {
+            current = current->next;
+        }
+    }
+
+    return removed;
+}
+
+void clearTasks(TaskNode*& head) {
+    while (head != nullptr) {
+        TaskNode* temp = head;
+
+        head = head->next;
+
+        delete temp;
+    }
+
+    head = nullptr:
+}
+
+void printTask(const Task& task) {
+    cout << task.description
+         << " | priority "
+         << task.priority
+         << " | ";
+
+    if (task.completed) {
+        cout << "Completed";
+    } else {
+        cout << "Incomplete";
+    }
+
+    cout << end1;
+}
+
+void printTasks(const TaskNode* head) {
+    const TaskNode* current = head;
+
+    while (current != nullptr) {
+        printTask(current->task);
+        
         current = current->next;
     }
 }
