@@ -12,7 +12,13 @@ Task createTask(string description, int priority) {
     Task task;
 
     task.description = description;
-    task.priority = priority;
+
+    if (isValidPriority(priority)) {
+        task.priority = priority;
+    } else {
+        task.priority = 1;
+    }
+    
     task.completed = false;
     
     return task; 
